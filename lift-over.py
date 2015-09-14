@@ -53,9 +53,9 @@ def _main():
                             args.chain)
             if new:
                 new_chrom, new_pos, new_strand = new
-                ref = record[3] if new_strand = '+' else reverse_complement(record[3])
-                alt = record[4] if new_strand = '+' else reverse_complement(record[4])
-                print '\t'.join([new_chrom, new_pos, record[2], ref, alt] + record[4:])
+                ref = record[3] if new_strand == '+' else reverse_complement(record[3])
+                alt = record[4] if new_strand == '+' else reverse_complement(record[4])
+                print '\t'.join([new_chrom, new_pos, record[2], ref, alt] + record[5:])
 
 
 if __name__ == '__main__':
