@@ -27,7 +27,7 @@ def lift_over(chrom, pos, strand, chain):
         with tempfile.NamedTemporaryFile() as mapped, tempfile.NamedTemporaryFile() as unmapped:
             # $ ./liftOver <oldFile> <map.chain> <newFile> <unMapped>
             cmd = [lift_over_exec, query.name, map_chain, mapped.name, unmapped.name]
-            print >>sys.stderr, '[DEBUG]', cmd
+            # print >>sys.stderr, '[DEBUG]', cmd
             subprocess.Popen(cmd, stdout=subprocess.PIPE).communicate()[0]
 
             mapped.seek(0)
@@ -42,12 +42,12 @@ def reverse_complement(x):
 def _main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--chain', choices=['hg18ToHg19', 'hg18ToHg38', 'hg19ToHg38'], required=True)
-    parser.add_argument('--vcf', action='store_true')
+    parser.add_argument('--format', choices=['vcf'], default='vcf')
     args = parser.parse_args()
 
 
     for line in sys.stdin:
-        if args.vcf:
+        if args.format == 'vcf':
             if line.startswith('#'):
                 print line,
             else:
